@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./index.js"></script>
+</head>
+<body onload="load()">
+  <canvas id="polycanvas" width="500px" height="500px" style="border: 5px solid gray;"></canvas>
+  <br>
+  <input type="range" min="1" max="10" id="range1" value="2" oninput="range1change()" onchange="range1change()"><label id="label1">2</label>
+  <input type="range" min="1" max="10" id="range2" value="3" oninput="range2change()" onchange="range2change()"><label id="label2">3</label>
+  <button id="start">START</button>
+  <button id="stop">STOP</button>
+  <input type="range" min="1" max="20" id="range3" value="10" oninput="range3change()" onchange="range3change()"><label>speed</label>
+</body>
+</html>
