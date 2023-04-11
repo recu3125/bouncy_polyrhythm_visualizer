@@ -1,17 +1,18 @@
 var ctx
 var canvas
-var speed=10
+var speed = 10
 var x = 0, y = 0
 var r1 = 2, r2 = 3
 var np1 = 1, np2 = 1
 var w = 10, h = 10
+var dostep = true
 var audioa = new Audio('./2a.mp3');
 var audiob = new Audio('./2b.mp3');
 var audioc = new Audio('./2c.mp3');
 audioa.preload = 'auto';
 audiob.preload = 'auto';
 audioc.preload = 'auto';
-var audios = [audioa,audiob,audioc]
+var audios = [audioa, audiob, audioc]
 
 function load() {
   canvas = document.getElementById('polycanvas')
@@ -29,12 +30,7 @@ function load() {
   start.addEventListener('click', (event) => {
     audios[2].currentTime = 0;
     audios[2].play();
-    
-    if (stepinterval !== null) {
-      clearInterval(stepinterval);
-    }
-
-    stepinterval = setInterval(step, 10)
+    dostep = true
     console.log('start!')
     np1 = 1
     np2 = 1
@@ -42,8 +38,9 @@ function load() {
     y = np2 * r2
   })
   stop.addEventListener('click', (event) => {
-    clearInterval(stepinterval)
+    dostep = false
   })
+  step()
 }
 
 function range1change() {
@@ -92,6 +89,10 @@ function createHexWithAlpha(hex, alpha) {
 }
 
 function step() {
+  if (!dostep) {
+    window.requestAnimationFrame(step);
+    return
+  }
   let audionum = 0
   tick += 1
   clearcanvas()
@@ -119,12 +120,13 @@ function step() {
     }
     x += np1 * r1
     y += np2 * r2
-    if(audionum>0){
-    audios[audionum-1].currentTime = 0;
-    audios[audionum-1].play();
+    if (audionum > 0) {
+      audios[audionum - 1].currentTime = 0;
+      audios[audionum - 1].play();
     }
   }
   display()
+  window.requestAnimationFrame(step);
 }
 
 function display() {
